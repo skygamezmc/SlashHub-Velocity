@@ -1,0 +1,5 @@
+com\woolmc\slashhub\Commands\ReloadCommand.class
+com\woolmc\slashhub\Commands\HubCommand.class
+com\woolmc\slashhub\Main.class
+velocity-plugin.json
+com\woolmc\slashhub\Updater\UpdateChecker.class

@@ -1,0 +1,27 @@
+#################################
+#    SlashHub Version 1.2     #
+#################################
+
+#Permissions
+#/Hub permission: slashhub.use
+#/HubReload permission: slashhub.reload
+
+# Target server selection
+# Note that the server(s) you put in MUST be a server that is listed in your bungeecord config
+
+# Set your lobbys according to the lobbies bungeecord names
+# You can set more than 2 lobbies!
+TargetServers = [ "lobby1", "lobby2" ]
+
+# This sets the command aliases for the Hub command
+# A RESTART IS REQUIRED TO COMMIT CHANGES TO THIS!
+CommandAliases = [ "lobby" ]
+
+# Message customization
+# From here you can customize all messages that the plugin sends
+ConnectingMessage = "&aSending you to Lobby.."
+AlreadyOnHubMessage = "&cYou are already connected to this server!"
+CannotExecuteOnConsoleMessage = "&cThis command can only be executed by a player!"
+ServerNotFound = "&cIt appears that the server you are trying to connect to does not exist. Please contact an Administrator."
+NoPermission = "&cYou do not have permission to run this command!"
+ReloadedPlugin = "&aSuccessfully reloaded SlashHub!"
