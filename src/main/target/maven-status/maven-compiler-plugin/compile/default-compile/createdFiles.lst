@@ -1,0 +1,5 @@
+velocity-plugin.json
+me\skygamez\slashhub\Commands\HubCommand.class
+me\skygamez\slashhub\Commands\ReloadCommand.class
+me\skygamez\slashhub\Updater\UpdateChecker.class
+me\skygamez\slashhub\SlashHub.class
