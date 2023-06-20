@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>me.skygamez</groupId>
     <artifactId>SlashHub</artifactId>
-    <version>1.2</version>
+    <version>1.4.1</version>
     <build>
         <plugins>
             <plugin>
@@ -45,6 +45,11 @@
             <groupId>org.spongepowered</groupId>
             <artifactId>configurate-hocon</artifactId>
             <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.14.0</version>
         </dependency>
     </dependencies>
 </project>
