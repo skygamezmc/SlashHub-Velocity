@@ -11,6 +11,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.skygamez.slashhub.Commands.HubCommand;
 import me.skygamez.slashhub.Commands.ReloadCommand;
+import me.skygamez.slashhub.Metrics.Metrics;
 import me.skygamez.slashhub.Updater.UpdateChecker;
 import org.slf4j.Logger;
 
@@ -44,6 +45,8 @@ public class SlashHub {
     public String ServerNotFound;
     public String NoPermission;
     public String ReloadedPlugin;
+
+    private Metrics.Factory metricsFactory;
 
     //Function for loading config
     public Toml loadConfig(Path path) {
@@ -84,10 +87,12 @@ public class SlashHub {
     }
 
     @Inject
-    public void SlashHub(ProxyServer server, Logger logger, CommandManager commandManager, @DataDirectory final Path folder) throws IOException {
+    public void SlashHub(ProxyServer server, Logger logger, Metrics.Factory metricsFactory, CommandManager commandManager, @DataDirectory final Path folder) throws IOException {
         this.server = server;
         this.logger = logger;
         this.folder = folder;
+
+        this.metricsFactory = metricsFactory;
 
         Toml toml = loadConfig(folder);
         if (toml == null) {
@@ -140,5 +145,8 @@ public class SlashHub {
 
         CommandMeta ReloadMeta = commandManager.metaBuilder("hubreload").build();
         commandManager.register(ReloadMeta, new ReloadCommand(this, folder));
+
+        int pluginId = 18816;
+        Metrics metrics = metricsFactory.make(this, pluginId);
     }
 }
