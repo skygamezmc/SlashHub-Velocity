@@ -35,7 +35,7 @@ public class SlashHub {
 
     public Path folder = null;
 
-    public String Version = "1.4";
+    public String Version = "1.4.2";
 
     public List<String> TargetServers;
     public List<String> CommandAliases;
@@ -117,7 +117,7 @@ public class SlashHub {
                 logger.info("");
                 logger.info("§7  * §9SlashHub by SkyGameZ §7*");
                 logger.info("§7   * §9Velocity edition §7*");
-                logger.info("§7    * §9Version 1.4 §7*");
+                logger.info("§7    * §9Version 1.4.2 §7*");
                 logger.info("");
                 logger.info("§b----------------------------");
             }

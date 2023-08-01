@@ -56,7 +56,7 @@ public class HubCommand implements SimpleCommand {
             return;
         }
 
-        if (TargetServers.contains(player.getCurrentServer().toString())) {
+        if (server.getServer(RandomServer).get().getPlayersConnected().contains(player)) {
             parsed = miniMessage.deserialize(slashHub.AlreadyOnServer);
             source.sendMessage(parsed);
             return;
