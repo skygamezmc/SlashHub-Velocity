@@ -6,6 +6,7 @@ import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import me.skygamez.slashhub.SlashHub;
+import me.skygamez.slashhub.Utils.MessageFormatter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
@@ -20,6 +21,8 @@ public class HubCommand implements SimpleCommand {
     MiniMessage miniMessage = MiniMessage.miniMessage();
     Component parsed;
 
+    private final MessageFormatter messageFormatter = new MessageFormatter();
+
     public HubCommand(SlashHub slashHub, ProxyServer server) {
         this.server = server;
         this.slashHub = slashHub;
@@ -30,7 +33,7 @@ public class HubCommand implements SimpleCommand {
         CommandSource source = invocation.source();
 
         if (!(source instanceof Player)) {
-            parsed = miniMessage.deserialize(slashHub.CannotExecuteOnConsole);
+            parsed = messageFormatter.Format(miniMessage, slashHub.CannotExecuteOnConsole);
             source.sendMessage(parsed);
             //source.sendMessage(Component.text(Main.CannotExecuteOnConsole.replace('&', '§')));
             return;
@@ -39,31 +42,36 @@ public class HubCommand implements SimpleCommand {
         Player player = (Player) source;
 
         if (!player.hasPermission("slashhub.use")) {
-            parsed = miniMessage.deserialize(slashHub.NoPermission);
+            parsed = messageFormatter.Format(miniMessage, slashHub.NoPermission);
+            player.sendMessage(parsed);
+            return;
+        }
+
+        if (slashHub.BlockedServers.contains(player.getCurrentServer().get().getServerInfo().getName()) && !player.hasPermission("slashhub.bypass")) {
+            parsed = messageFormatter.Format(miniMessage, slashHub.ServerDisabled);
             player.sendMessage(parsed);
             return;
         }
 
         Random rand = new Random();
-        List<String> TargetServers = slashHub.TargetServers;
-        String RandomServer = TargetServers.get(rand.nextInt(TargetServers.size()));
+        String RandomServer = slashHub.TargetServers.get(rand.nextInt(slashHub.TargetServers.size()));
 
         if (!server.getServer(RandomServer).isPresent()) {
-            parsed = miniMessage.deserialize(slashHub.ServerNotFound);
+            parsed = messageFormatter.Format(miniMessage, slashHub.ServerNotFound);
             player.sendMessage(parsed);
             System.out.println("[SlashHub] Player " + player.getUsername() + " has attempted to connect to server " + RandomServer + " However this server was not found in your Velocity Config");
 
             return;
         }
 
-        if (server.getServer(RandomServer).get().getPlayersConnected().contains(player)) {
-            parsed = miniMessage.deserialize(slashHub.AlreadyOnServer);
+        if (slashHub.TargetServers.contains(player.getCurrentServer().get().getServerInfo().getName())) {
+            parsed = messageFormatter.Format(miniMessage, slashHub.AlreadyOnServer);
             source.sendMessage(parsed);
             return;
         }
 
         Optional<RegisteredServer> TargetServer = server.getServer(RandomServer);
-        parsed = miniMessage.deserialize(slashHub.ConnectingMessage);
+        parsed = messageFormatter.Format(miniMessage, slashHub.ConnectingMessage);
         source.sendMessage(parsed);
         player.createConnectionRequest(TargetServer.get()).fireAndForget();
     }

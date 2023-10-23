@@ -1,13 +1,14 @@
 #################################
-#    SlashHub Version 1.4.1     #
+#     SlashHub Version 1.5      #
 #################################
 
 # PLEASE PRIVATE MESSAGE SKYGAMEZ OR LEAVE A POST IN THE DISCUSSION TAB BEFORE RATING ONE STAR!
 # YOUR ISSUE MIGHT BE AN EASY FIX!!
 
-#Permissions
-#/Hub permission: slashhub.use
-#/HubReload permission: slashhub.reload
+# Permissions
+#   slashhub.use - Allows usage of /hub and its according aliases
+#   slashhub.reload - Allows usage of /hubreload
+#   slashhub.bypass - Allows bypassing of /hub being disabled on select servers.
 
 # Target server selection
 # Note that the server(s) you put in MUST be a server that is listed in your velocity config
@@ -15,6 +16,10 @@
 # Set your lobbys according to the lobbies velocity names
 # You can set more than 2 lobbies!
 TargetServers = [ "lobby1", "lobby2" ]
+
+# Set servers you want to block access to /hub
+# You can set more than 1 server!
+DisabledServers = [ "example" ]
 
 # This sets the command aliases for the Hub command
 # A RESTART IS REQUIRED TO COMMIT CHANGES TO THIS!
@@ -28,6 +33,7 @@ CannotExecuteOnConsoleMessage = "<green>This command can only be executed by a p
 ServerNotFound = "<red>It appears that the server you are trying to connect to does not exist. Please contact an Administrator."
 NoPermission = "<red>You do not have permission to run this command!"
 ReloadedPlugin = "<green>Successfully reloaded SlashHub!"
+ServerDisabled = "<red>This command is disabled on this server!"
 
 #Do not touch this
 Config-Version = 1.0
