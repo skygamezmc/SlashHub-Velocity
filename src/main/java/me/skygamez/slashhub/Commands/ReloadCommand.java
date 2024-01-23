@@ -6,6 +6,7 @@ import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.Player;
 import me.skygamez.slashhub.SlashHub;
+import me.skygamez.slashhub.Utils.MessageFormatter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
@@ -18,6 +19,8 @@ public class ReloadCommand implements SimpleCommand {
 
     MiniMessage miniMessage = MiniMessage.miniMessage();
     Component parsed;
+
+    private final MessageFormatter messageFormatter = new MessageFormatter();
 
     public ReloadCommand (SlashHub slashHub, @DataDirectory final Path folder) {
         this.folder = folder;
@@ -39,7 +42,7 @@ public class ReloadCommand implements SimpleCommand {
             slashHub.NoPermission = toml.getString("NoPermission");
             slashHub.ReloadedPlugin = toml.getString("ReloadedPlugin");
 
-            parsed = miniMessage.deserialize(slashHub.ReloadedPlugin);
+            parsed = messageFormatter.Format(miniMessage, slashHub.ReloadedPlugin);
             source.sendMessage(parsed);
             return;
         }
@@ -48,7 +51,7 @@ public class ReloadCommand implements SimpleCommand {
 
 
         if (!player.hasPermission("slashhub.reload")) {
-            parsed = miniMessage.deserialize(slashHub.NoPermission);
+            parsed = messageFormatter.Format(miniMessage, slashHub.NoPermission);
             player.sendMessage(parsed);
             return;
         }
@@ -62,7 +65,7 @@ public class ReloadCommand implements SimpleCommand {
         slashHub.NoPermission = toml.getString("NoPermission");
         slashHub.ReloadedPlugin = toml.getString("ReloadedPlugin");
 
-        parsed = miniMessage.deserialize(slashHub.ReloadedPlugin);
+        parsed = messageFormatter.Format(miniMessage,slashHub.ReloadedPlugin);
         player.sendMessage(parsed);
     }
 

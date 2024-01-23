@@ -25,7 +25,7 @@ import java.util.List;
 @Plugin(
         id = "slashhub",
         name = "SlashHub",
-        version = "1.0",
+        version = "1.5.2",
         description = "A Velocity port for SlashHub",
         authors = {"skygamez"}
 )
@@ -35,9 +35,10 @@ public class SlashHub {
 
     public Path folder = null;
 
-    public String Version = "1.4.2";
+    public String Version = "1.5.1";
 
     public List<String> TargetServers;
+    public List<String> BlockedServers;
     public List<String> CommandAliases;
     public String ConnectingMessage;
     public String AlreadyOnServer;
@@ -45,6 +46,7 @@ public class SlashHub {
     public String ServerNotFound;
     public String NoPermission;
     public String ReloadedPlugin;
+    public String ServerDisabled;
 
     private Metrics.Factory metricsFactory;
 
@@ -77,6 +79,7 @@ public class SlashHub {
     public void LoadConfigVars() {
         Toml toml = loadConfig(folder);
         TargetServers = toml.getList("TargetServers");
+        BlockedServers = toml.getList("DisabledServers");
         CommandAliases = toml.getList("CommandAliases");
         ConnectingMessage = toml.getString("ConnectingMessage");
         AlreadyOnServer = toml.getString("AlreadyOnHubMessage");
@@ -84,6 +87,7 @@ public class SlashHub {
         ServerNotFound = toml.getString("ServerNotFound");
         NoPermission = toml.getString("NoPermission");
         ReloadedPlugin = toml.getString("ReloadedPlugin");
+        ServerDisabled = toml.getString("ServerDisabled");
     }
 
     @Inject
@@ -103,21 +107,20 @@ public class SlashHub {
         LoadConfigVars();
 
         try {
-            UpdateChecker updateChecker = new UpdateChecker(this);
-            if (updateChecker.updateRequired()) {
+            UpdateChecker updateChecker = new UpdateChecker(this, 101114);
+            if (updateChecker.isUpdateRequired()) {
                 logger.info("§b----------------------------");
                 logger.info("");
-                logger.info("§7  * §9SlashHub by SkyGameZ §7*");
-                logger.info("§7   * §9Velocity edition §7*");
+                logger.info("§7  * §9SlashHub Velocity by SkyGameZ §7*");
+                logger.info("§7    * §9Version 1.5.1 §7*");
                 logger.info("§7   * §9Update available! §7*");
                 logger.info("");
                 logger.info("§b----------------------------");
             } else {
                 logger.info("§b----------------------------");
                 logger.info("");
-                logger.info("§7  * §9SlashHub by SkyGameZ §7*");
-                logger.info("§7   * §9Velocity edition §7*");
-                logger.info("§7    * §9Version 1.4.2 §7*");
+                logger.info("§7  * §9SlashHub Velocity by SkyGameZ §7*");
+                logger.info("§7    * §9Version 1.5.1 §7*");
                 logger.info("");
                 logger.info("§b----------------------------");
             }

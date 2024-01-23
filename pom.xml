@@ -6,7 +6,7 @@
 
     <groupId>me.skygamez</groupId>
     <artifactId>SlashHub</artifactId>
-    <version>1.4.2</version>
+    <version>1.5.2</version>
     <build>
         <plugins>
             <plugin>
@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.velocitypowered</groupId>
             <artifactId>velocity-api</artifactId>
-            <version>3.1.0</version>
+            <version>3.3.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -49,7 +49,7 @@
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
-            <version>4.14.0</version>
+            <version>4.15.0</version>
         </dependency>
     </dependencies>
 </project>
