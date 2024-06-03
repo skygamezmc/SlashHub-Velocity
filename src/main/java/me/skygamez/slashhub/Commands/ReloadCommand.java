@@ -41,6 +41,8 @@ public class ReloadCommand implements SimpleCommand {
             slashHub.ServerNotFound = toml.getString("ServerNotFound");
             slashHub.NoPermission = toml.getString("NoPermission");
             slashHub.ReloadedPlugin = toml.getString("ReloadedPlugin");
+            slashHub.RequireUsePermission = toml.getBoolean("RequireUsePermission");
+            slashHub.BlockedServers = toml.getList("DisabledServers");
 
             parsed = messageFormatter.Format(miniMessage, slashHub.ReloadedPlugin);
             source.sendMessage(parsed);
@@ -48,7 +50,6 @@ public class ReloadCommand implements SimpleCommand {
         }
 
         Player player = (Player) source;
-
 
         if (!player.hasPermission("slashhub.reload")) {
             parsed = messageFormatter.Format(miniMessage, slashHub.NoPermission);
@@ -64,9 +65,16 @@ public class ReloadCommand implements SimpleCommand {
         slashHub.ServerNotFound = toml.getString("ServerNotFound");
         slashHub.NoPermission = toml.getString("NoPermission");
         slashHub.ReloadedPlugin = toml.getString("ReloadedPlugin");
+        slashHub.RequireUsePermission = toml.getBoolean("RequireUsePermission");
+        slashHub.BlockedServers = toml.getList("DisabledServers");
 
         parsed = messageFormatter.Format(miniMessage,slashHub.ReloadedPlugin);
         player.sendMessage(parsed);
+    }
+
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        return invocation.source().hasPermission("slashhub.reload");
     }
 
     private Toml config(Path path) {

@@ -25,7 +25,7 @@ import java.util.List;
 @Plugin(
         id = "slashhub",
         name = "SlashHub",
-        version = "1.5",
+        version = "1.6.1",
         description = "A Velocity port for SlashHub",
         authors = {"skygamez"}
 )
@@ -35,7 +35,7 @@ public class SlashHub {
 
     public Path folder = null;
 
-    public String Version = "1.5";
+    public String version = "1.6.2";
 
     public List<String> TargetServers;
     public List<String> BlockedServers;
@@ -47,6 +47,7 @@ public class SlashHub {
     public String NoPermission;
     public String ReloadedPlugin;
     public String ServerDisabled;
+    public boolean RequireUsePermission;
 
     private Metrics.Factory metricsFactory;
 
@@ -88,6 +89,7 @@ public class SlashHub {
         NoPermission = toml.getString("NoPermission");
         ReloadedPlugin = toml.getString("ReloadedPlugin");
         ServerDisabled = toml.getString("ServerDisabled");
+        RequireUsePermission = toml.getBoolean("RequireUsePermission");
     }
 
     @Inject
@@ -112,7 +114,7 @@ public class SlashHub {
                 logger.info("§b----------------------------");
                 logger.info("");
                 logger.info("§7  * §9SlashHub Velocity by SkyGameZ §7*");
-                logger.info("§7    * §9Version 1.5 §7*");
+                logger.info("§7    * §9Version " + version + " §7*");
                 logger.info("§7   * §9Update available! §7*");
                 logger.info("");
                 logger.info("§b----------------------------");
@@ -120,7 +122,7 @@ public class SlashHub {
                 logger.info("§b----------------------------");
                 logger.info("");
                 logger.info("§7  * §9SlashHub Velocity by SkyGameZ §7*");
-                logger.info("§7    * §9Version 1.5 §7*");
+                logger.info("§7    * §9Version " + version + " §7*");
                 logger.info("");
                 logger.info("§b----------------------------");
             }
@@ -144,7 +146,7 @@ public class SlashHub {
         CommandManager commandManager = server.getCommandManager();
 
         CommandMeta HubMeta = commandManager.metaBuilder("hub").aliases(CommandAliases.toArray(new String[0])).build();
-        commandManager.register(HubMeta, new HubCommand(this ,this.server));
+        commandManager.register(HubMeta, new HubCommand(this ,this.server, RequireUsePermission));
 
         CommandMeta ReloadMeta = commandManager.metaBuilder("hubreload").build();
         commandManager.register(ReloadMeta, new ReloadCommand(this, folder));

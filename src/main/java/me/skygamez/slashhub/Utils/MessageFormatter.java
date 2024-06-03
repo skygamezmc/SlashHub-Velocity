@@ -43,13 +43,6 @@ public class MessageFormatter {
             text = text.replace(entry.getKey(), entry.getValue());
         }
 
-        //Match text Hexcode usage and assign it accordingly
-        Matcher matcher = hexColorPattern.matcher(text);
-        while (matcher.find()) {
-            String color = text.substring(matcher.start(), matcher.end());
-            text = text.replace(color, "<" + color + ">");
-        }
-
         return mm.deserialize(text);
     }
 }

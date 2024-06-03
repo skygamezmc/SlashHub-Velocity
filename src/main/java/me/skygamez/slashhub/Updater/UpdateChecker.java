@@ -41,6 +41,6 @@ public class UpdateChecker {
             connection.disconnect();
         }
 
-        return !localPlugin.Version.equals(newVersion);
+        return localPlugin.version.equals(newVersion);
     }
 }
