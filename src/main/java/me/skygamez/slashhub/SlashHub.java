@@ -11,6 +11,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import me.skygamez.slashhub.Commands.HubCommand;
 import me.skygamez.slashhub.Commands.ReloadCommand;
+import me.skygamez.slashhub.Commands.SlashHubCommand;
 import me.skygamez.slashhub.Metrics.Metrics;
 import me.skygamez.slashhub.Updater.UpdateChecker;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ import java.util.List;
 @Plugin(
         id = "slashhub",
         name = "SlashHub",
-        version = "1.6.1",
+        version = "1.7",
         description = "A Velocity port for SlashHub",
         authors = {"skygamez"}
 )
@@ -35,7 +36,7 @@ public class SlashHub {
 
     public Path folder = null;
 
-    public String version = "1.6.2";
+    public String version = "1.7";
 
     public List<String> TargetServers;
     public List<String> BlockedServers;
@@ -148,8 +149,8 @@ public class SlashHub {
         CommandMeta HubMeta = commandManager.metaBuilder("hub").aliases(CommandAliases.toArray(new String[0])).build();
         commandManager.register(HubMeta, new HubCommand(this ,this.server, RequireUsePermission));
 
-        CommandMeta ReloadMeta = commandManager.metaBuilder("hubreload").build();
-        commandManager.register(ReloadMeta, new ReloadCommand(this, folder));
+        CommandMeta slashHubMeta = commandManager.metaBuilder("slashhub").build();
+        commandManager.register(slashHubMeta, new SlashHubCommand(this, folder));
 
         int pluginId = 18816;
         Metrics metrics = metricsFactory.make(this, pluginId);
