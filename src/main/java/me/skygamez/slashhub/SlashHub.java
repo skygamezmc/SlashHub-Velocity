@@ -26,7 +26,7 @@ import java.util.List;
 @Plugin(
         id = "slashhub",
         name = "SlashHub",
-        version = "1.7",
+        version = "1.7.1",
         description = "A Velocity port for SlashHub",
         authors = {"skygamez"}
 )
@@ -36,7 +36,7 @@ public class SlashHub {
 
     public Path folder = null;
 
-    public String version = "1.7";
+    public String version = "1.7.1";
 
     public List<String> TargetServers;
     public List<String> BlockedServers;
